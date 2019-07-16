@@ -26,7 +26,8 @@ module.exports = {
     'no-return-assign': 0,
     'space-in-parens': [0, 'always'],
     'space-before-function-paren': [0, 'always'],
-    'no-extend-native': 0
+    'no-extend-native': 0,
+    'no-useless-escape': 0
   },
   parserOptions: {
     parser: '@typescript-eslint/parser'
