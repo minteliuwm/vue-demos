@@ -1,4 +1,4 @@
-# vue-demo-skin
+# vue-demos
 
 ## Project setup
 ```

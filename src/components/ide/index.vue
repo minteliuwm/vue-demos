@@ -8,6 +8,8 @@ import * as monaco from 'monaco-editor';
 import { language as sqlLanguage } from '../../lib/sql';
 import Bus from '../../bus';
 
+import { debounce } from 'lodash';
+
 @Component
 export default class UIde extends Vue {
   @Model('change', {
@@ -20,6 +22,8 @@ export default class UIde extends Vue {
 
   editor: any;
 
+  _resize: any;
+
   oldValue: string = '';
 
   @Watch('value')
@@ -30,16 +34,14 @@ export default class UIde extends Vue {
   }
 
   created() {
+    this._resize = debounce(this.resize, 500);
+    window.addEventListener('resize', this._resize);
     Bus.$on('theme_change', this.handleChangeTheme);
   }
 
   beforeDestroy() {
+    window.removeEventListener('resize', this._resize);
     Bus.$off('theme_change', this.handleChangeTheme);
-  }
-
-  handleChangeTheme() {
-    const theme = localStorage.getItem('custom_theme') || 'dark';
-    monaco && monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs');
   }
 
   /**
@@ -70,6 +72,15 @@ export default class UIde extends Vue {
       this.$emit('change', val);
       this.oldValue = val;
     });
+  }
+
+  resize() {
+    this.editor && this.editor.layout();
+  }
+
+  handleChangeTheme() {
+    const theme = localStorage.getItem('custom_theme') || 'dark';
+    monaco && monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs');
   }
 
   /**
