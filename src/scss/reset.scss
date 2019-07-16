@@ -1,3 +1,5 @@
+@import './theme/index.scss';
+
 html,
 body,
 h1,
@@ -31,7 +33,6 @@ textarea,
 menu {
 	margin: 0;
 	padding: 0;
-	font-size: 14px;
 }
 
 header,
@@ -136,7 +137,7 @@ a:hover {
 }
 
 body {
-	background: #fff;
+	@include bg_color;
 }
 
 label {
@@ -151,29 +152,29 @@ select,
 keygen,
 legend {
 	font: 14px/1.42858 Helvetica, Tahoma, Arial, "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
-	color: #313949;
+	@include font_color;
 	outline: 0;
 }
 
 a {
-	color: #5494db;
+	@include active_color;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #67aaf5;
+	@include hover_color;
 }
 
 a.z-dis,
 a[disabled] {
 	cursor: default;
-	color: #999;
+	@include disable_color;
 }
 
 a.z-dis:hover,
 a[disabled]:hover {
 	text-decoration: none !important;
-	color: #999 !important;
+	@include disable_color;
 }
 
 button {
@@ -183,18 +184,6 @@ button {
 input::-ms-clear,
 input::-ms-reveal {
 	display: none;
-}
-
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-	box-shadow: 0 0 0 1000px white inset;
-}
-
-input[type=text]:focus,
-input[type=password]:focus,
-textarea:focus {
-	box-shadow: 0 0 0 1000px white inset;
 }
 
 ::-webkit-scrollbar {

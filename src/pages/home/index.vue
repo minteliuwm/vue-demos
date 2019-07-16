@@ -1,5 +1,5 @@
 <template>
-	<div class="home-body">
+	<div class="home">
 		<home-header />
 		<div class="main">
 			<home-nav />
@@ -25,7 +25,7 @@ export default class Home extends Vue {}
 </script>
 
 <style lang="scss">
-.home-body {
+.home {
   display: flex;
   flex-direction: column;
   height: 100%;

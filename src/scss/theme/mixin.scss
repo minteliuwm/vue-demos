@@ -1,0 +1,57 @@
+@charset 'utf-8';
+@import './variable.scss';
+
+/* 背景颜色 */
+@mixin bg_color {
+  [data-theme='dark'] & {
+    background-color: $background-color-dark;
+  }
+
+  [data-theme='light'] & {
+    background-color: $background-color-light;
+  }
+}
+
+/* 字体颜色 */
+@mixin font_color {
+  [data-theme='dark'] & {
+    color: $font-color-dark;
+  }
+
+  [data-theme='light'] & {
+    color: $font-color-light;
+  }
+}
+
+/* active颜色 */
+@mixin active_color {
+  [data-theme='dark'] & {
+    color: $active-color-dark;
+  }
+
+  [data-theme='light'] & {
+    color: $active-color-light;
+  }
+}
+
+/* hover颜色 */
+@mixin hover_color {
+  [data-theme='dark'] & {
+    color: $hover-color-dark;
+  }
+
+  [data-theme='light'] & {
+    color: $hover-color-light;
+  }
+}
+
+/* disable颜色 */
+@mixin disable_color {
+  [data-theme='dark'] & {
+    color: $disable-color-dark;
+  }
+
+  [data-theme='light'] & {
+    color: $disable-color-light;
+  }
+}

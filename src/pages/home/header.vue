@@ -1,5 +1,5 @@
 <template>
-	<div class="home-header">
+	<div class="header">
 		<div class="methods">
 			<div class="item" @click="clickToChangeSkin">换肤</div>
 		</div>
@@ -8,23 +8,27 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Bus from '../../bus';
 
 @Component
 export default class HomeHeader extends Vue {
   clickToChangeSkin(): void {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('custom_theme', newTheme);
 
+    Bus.$emit('theme_change', newTheme);
   }
 }
 </script>
 
 <style lang="scss">
-.home-header {
+.header {
 	min-width: 1360px;
   flex: 0 0 56px;
   position: relative;
   height: 56px;
-  background-color: #2f3240;
-  color: #fff;
   .item {
     float: left;
     width: 152px;
@@ -34,10 +38,6 @@ export default class HomeHeader extends Vue {
 		cursor: pointer;
 		user-select: none;
 		font-size: 14px;
-		&-active,
-    &:hover {
-      background-color: #1a1d2a;
-    }
   }
   .methods {
     float: right;

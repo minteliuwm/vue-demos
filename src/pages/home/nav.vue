@@ -1,9 +1,9 @@
 <template>
-  <div class="home-nav">
+  <div class="nav">
     <div class="list">
       <div v-for="(nav, index) in navList" :key="index">
-        <hr v-if="nav.split">
-        <router-link v-else :title="nav.title" :to="{path: '/home' + nav.path}">
+        <hr class="hr" v-if="nav.split">
+        <router-link class="item" v-else :title="nav.title" :to="{path: '/home' + nav.path}">
           {{nav.title}}
         </router-link>
       </div>
@@ -22,37 +22,28 @@ interface Nav {
 @Component
 export default class HomeNav extends Vue {
   navList: Array<Nav> = [{
-    path: "/demo1",
-    title: "示例1"
+    path: '/editor',
+    title: '编辑器'
   }, {
-    path: "/demo2",
-    title: "示例2"
+    path: '/demo2',
+    title: '示例2'
   }]
 }
 </script>
 
 <style lang="scss">
-.home-nav {
+.nav {
   width: 200px;
-  background-color: #484c5e;
   .list {
     padding-top: 10px;
-    a {
+    .item {
       display: block;
       padding: 10px 0 10px 28px;
-      color: #fff;
-      &.router-link-active {
-        background-color: #5594dc;
-      }
-      &:hover {
-        background-color: #5594dc;
-      }
     }
-    hr {
+    .hr {
       margin: 10px 16px;
       border: 1px solid;
       border-bottom-width: 0;
-      color: #646878;
     }
   }
 }

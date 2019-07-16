@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './pages/home/index.vue';
-import Demo1 from './pages/demo1/index.vue';
+import Editor from './pages/editor/index.vue';
 import Demo2 from './pages/demo2/index.vue';
 
 Vue.use(Router);
 
 const HomeRouter = [{
   path: '',
-  redirect: 'demo1'
+  redirect: 'editor'
 }, {
-  path: 'demo1',
-  name: 'Demo1',
-  component: Demo1
+  path: 'editor',
+  name: 'Editor',
+  component: Editor
 }, {
   path: 'demo2',
   name: 'Demo2',

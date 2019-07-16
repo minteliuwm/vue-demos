@@ -25,8 +25,11 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.5",
+    "monaco-editor": "^0.17.1",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
+    "sql-formatter": "^2.3.3",
     "typescript": "^3.4.3",
     "vue-property-decorator": "^8.2.1",
     "vue-template-compiler": "^2.6.10"
