@@ -9,6 +9,7 @@ import { language as sqlLanguage } from '../../lib/sql';
 import Bus from '../../bus';
 
 import { debounce } from 'lodash';
+import sqlFormatter from 'sql-formatter';
 
 @Component
 export default class UIde extends Vue {
@@ -25,6 +26,8 @@ export default class UIde extends Vue {
   _resize: any;
 
   oldValue: string = '';
+
+  commandMap: any = {};
 
   @Watch('value')
   onValueChanged(val: string) {
@@ -56,6 +59,7 @@ export default class UIde extends Vue {
       theme: theme === 'dark' ? 'vs-dark' : 'vs',
       fontSize: 12,
       folding: true,
+      suggestLineHeight: 20,
       autoIndent: true,
       renderLineHighlight: 'line',
       scrollBeyondLastLine: false,
@@ -63,6 +67,8 @@ export default class UIde extends Vue {
     }, this.options));
 
     this._registerSql();
+
+    this._addCommand();
 
     editor.setValue(this.value);
 
@@ -76,6 +82,11 @@ export default class UIde extends Vue {
 
   resize() {
     this.editor && this.editor.layout();
+  }
+
+  executeCommand(command: string) {
+    const cmd = this.commandMap[command];
+    cmd && this.editor && this.editor._commandService.executeCommand(cmd);
   }
 
   handleChangeTheme() {
@@ -132,6 +143,32 @@ export default class UIde extends Vue {
         };
       }
     });
+
+    monaco.languages.registerDocumentFormattingEditProvider('sql', {
+      provideDocumentFormattingEdits(model) {
+        const formatted = sqlFormatter.format(model.getValue());
+        return [{
+          range: model.getFullModelRange(),
+          text: formatted
+        }];
+      }
+    });
+  }
+
+  _addCommand() {
+    const saveBinding = this.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
+      alert('SAVE pressed!');
+    });
+    this.commandMap['save'] = saveBinding;
+
+    const formatBinding = this.editor.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KEY_F, () => {
+      this._formatSql();
+    });
+    this.commandMap['format'] = formatBinding;
+  }
+
+  _formatSql() {
+    this.editor.getAction('editor.action.formatDocument').run();
   }
 }
 </script>

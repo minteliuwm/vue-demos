@@ -12,6 +12,7 @@
       <u-ide
         ref="editor"
         v-model="sql"
+        @editor-format="_onEditorFormat"
       ></u-ide>
     </div>
     <div class="console" v-show="consoleVisible" :style="consoleStyle">
@@ -24,7 +25,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import UIde from '../../components/ide/index.vue';
 
-import sqlFormatter from 'sql-formatter';
 import { debounce } from 'lodash';
 
 @Component({
@@ -87,8 +87,13 @@ export default class Editor extends Vue {
     editor && editor.resize();
   }
 
+  _onEditorFormat() {
+    this.formatSql();
+  }
+
   formatSql() {
-    this.sql = sqlFormatter.format(this.sql);
+    const editor = this.$refs.editor as UIde;
+    editor && editor.executeCommand('format');
   }
 
   toggleConsole() {
